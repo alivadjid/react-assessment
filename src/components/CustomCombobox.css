@@ -1,3 +1,19 @@
 .customCombobox {
-  background-color: red;
+  /* background-color: red; */
+}
+
+.comboboxInput {
+  background-color: var(--color-grey);
+  padding: 8px;
+  border: none;
+}
+
+.comboboxInputRow {
+  background-color: var(--color-grey);
+  display: flex;
+  justify-content: space-between;
+}
+
+.comboboxInputRow > :first-child {
+  width: 90%;
 }
