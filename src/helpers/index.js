@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useOutsideAlerter(ref) {
+export function useOutside(ref) {
   const [isInFocus, setIsInFocus] = useState(false);
   useEffect(() => {
     function handleClickOutside(event) {
