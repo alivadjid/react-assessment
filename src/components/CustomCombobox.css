@@ -4,8 +4,8 @@
 
 .comboboxInput {
   background-color: var(--color-grey);
-  padding: 8px;
   border: none;
+  outline: none;
 }
 
 .comboboxInputRow {
@@ -16,4 +16,9 @@
 
 .comboboxInputRow > :first-child {
   width: 90%;
+}
+
+.datalist {
+  text-align: start;
+  position: absolute;
 }
