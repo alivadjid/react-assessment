@@ -1,15 +1,13 @@
 .customCombobox {
-  /* background-color: red; */
+  width: 250px;
 }
 
 .comboboxInput {
-  background-color: var(--color-grey);
   border: none;
   outline: none;
 }
 
 .comboboxInputRow {
-  background-color: var(--color-grey);
   display: flex;
   justify-content: space-between;
 }
@@ -20,5 +18,17 @@
 
 .datalist {
   text-align: start;
-  position: absolute;
+  /* position: absolute; */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 250px;
+}
+
+.listItem {
+  cursor: pointer;
+}
+
+.listItem:hover {
+  background-color: var(--color-item-hover);
 }

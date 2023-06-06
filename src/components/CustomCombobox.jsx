@@ -11,31 +11,54 @@ export const CustomCombobox = () => {
 
   const { isInFocus: isInputInFocus } = useOutside(inputRef);
   const { isInFocus: isImageInFocus } = useOutside(imageRef);
+  const isElementInFocus = isInputInFocus || isImageInFocus;
 
   return (
     <>
-      <div className="customCombobox">
+      <div
+        className="customCombobox"
+        style={{
+          border: isElementInFocus ? "1px solid var(--color-blue)" : "",
+          borderRadius: isElementInFocus ? "8px" : "",
+        }}
+      >
         <div className="comboboxInputRow">
+          {isElementInFocus}
           <input
             ref={inputRef}
             type="text"
-            placeholder="Choose a fruit:"
-            className="comboboxInput p-8"
+            placeholder="Choose a Fruit:"
+            className="comboboxInput ml-8"
+            style={{
+              backgroundColor: isElementInFocus ? "" : "var(--color-gray)",
+            }}
+            onChange={(e) => setSearchElement(e.target.value)}
           />
 
           <img
             ref={imageRef}
             src="src/assets/icons8-down-24.png"
             alt="down"
-            style={{ width: "10px", height: "7px", padding: "13px" }}
+            style={{
+              width: "10px",
+              height: "7px",
+              padding: "13px",
+              backgroundColor: isElementInFocus ? "" : "var(--color-gray)",
+            }}
           />
         </div>
 
-        {isInputInFocus || isImageInFocus ? (
-          <div className="datalist p-8">
-            {data.map((element, index) => (
-              <div key={index}>{element}</div>
-            ))}
+        {isElementInFocus ? (
+          <div className="datalist">
+            {data
+              .filter((element) =>
+                element.toLowerCase().includes(searchElement.toLowerCase())
+              )
+              .map((item, index) => (
+                <div key={index} className="listItem p-8">
+                  {item}
+                </div>
+              ))}
           </div>
         ) : (
           ""
