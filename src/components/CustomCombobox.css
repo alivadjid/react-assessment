@@ -3,6 +3,10 @@
   display: inline-block;
 }
 
+.customCombobox:hover .datalist {
+  display: block;
+}
+
 .comboboxInput {
   border: none;
   outline: none;
@@ -33,8 +37,9 @@
   gap: 8px;
 }
 
-.customCombobox:hover .datalist {
-  display: block;
+.datalist > :last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .listItem {
