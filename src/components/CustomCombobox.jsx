@@ -1,25 +1,47 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./CustomCombobox.css";
-import { useOutside, removeEmoji } from "../helpers";
+import { removeEmoji } from "../helpers";
 
 export const CustomCombobox = () => {
   const inputRef = useRef(null);
   const imageRef = useRef(null);
+  const listRef = useRef(null);
 
   const [searchElement, setSearchElement] = useState("");
-  const data = ["🍎 Apple", "🍌 Banana", "🫐 Blueberry", "🥭 Mango"];
+  const [isShowList, setIsShowList] = useState(false);
+  const list = ["🍎 Apple", "🍌 Banana", "🫐 Blueberry", "🥭 Mango"];
 
-  const { isInFocus: isInputInFocus } = useOutside(inputRef);
-  const { isInFocus: isImageInFocus } = useOutside(imageRef);
-  const isElementInFocus = isInputInFocus || isImageInFocus;
+  useEffect(() => {
+    if (isShowList) {
+      const handler = (event) => {
+        if (
+          !listRef.current?.contains(event.target) &&
+          !inputRef.current?.contains(event.target) &&
+          !imageRef.current?.contains(event.target)
+        )
+          setIsShowList(false);
+      };
+      document.addEventListener("mousedown", handler);
+    }
+  }, [isShowList]);
+
+  function handleClick(item) {
+    setSearchElement(removeEmoji(item));
+    setIsShowList(false);
+  }
+
+  function listFilter() {
+    return list.filter((element) =>
+      element.toLowerCase().includes(searchElement.toLowerCase())
+    );
+  }
 
   return (
     <>
       <div className="customCombobox">
         <div
           className={
-            "comboboxInputRow " +
-            (isElementInFocus ? "comboboxInputBorder" : "")
+            "comboboxInputRow " + (isShowList ? "comboboxInputBorder" : "")
           }
         >
           <input
@@ -28,10 +50,11 @@ export const CustomCombobox = () => {
             placeholder="Choose a Fruit:"
             className="comboboxInput ml-8 pl-8"
             style={{
-              backgroundColor: isElementInFocus ? "" : "var(--color-gray)",
+              backgroundColor: isShowList ? "" : "var(--color-gray)",
             }}
             value={searchElement}
             onChange={(e) => setSearchElement(e.target.value)}
+            onClick={() => setIsShowList(true)}
           />
 
           <img
@@ -42,26 +65,23 @@ export const CustomCombobox = () => {
               width: "10px",
               height: "7px",
               padding: "13px",
-              backgroundColor: isElementInFocus ? "" : "var(--color-gray)",
+              backgroundColor: isShowList ? "" : "var(--color-gray)",
             }}
+            onClick={() => setIsShowList(!isShowList)}
           />
         </div>
 
-        {isElementInFocus ? (
-          <div className="datalist">
-            {data
-              .filter((element) =>
-                element.toLowerCase().includes(searchElement.toLowerCase())
-              )
-              .map((item, index) => (
-                <div
-                  key={index}
-                  className="listItem p-8"
-                  onClick={() => setSearchElement(removeEmoji(item))}
-                >
-                  {item}
-                </div>
-              ))}
+        {isShowList ? (
+          <div ref={listRef} className="datalist">
+            {listFilter().map((item, index) => (
+              <div
+                key={index}
+                className="listItem p-8"
+                onClick={() => handleClick(item)}
+              >
+                {item}
+              </div>
+            ))}
           </div>
         ) : (
           ""
