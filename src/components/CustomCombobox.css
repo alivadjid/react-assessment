@@ -1,5 +1,6 @@
 .customCombobox {
-  width: 250px;
+  position: relative;
+  display: inline-block;
 }
 
 .comboboxInput {
@@ -12,17 +13,28 @@
   justify-content: space-between;
 }
 
-.comboboxInputRow > :first-child {
-  width: 90%;
+.comboboxInputBorder {
+  border: 1px solid var(--color-blue);
+  border-bottom: none;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 
 .datalist {
+  border: 1px solid var(--color-blue);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top: none;
   text-align: start;
-  /* position: absolute; */
-  display: flex;
-  flex-direction: column;
+  width: 99%;
+  display: block;
+  position: absolute;
+  z-index: 1;
   gap: 8px;
-  width: 250px;
+}
+
+.customCombobox:hover .datalist {
+  display: block;
 }
 
 .listItem {

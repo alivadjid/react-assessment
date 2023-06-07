@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import "./CustomCombobox.css";
-import { useOutside } from "../helpers";
+import { useOutside, removeEmoji } from "../helpers";
 
 export const CustomCombobox = () => {
   const inputRef = useRef(null);
@@ -15,23 +15,22 @@ export const CustomCombobox = () => {
 
   return (
     <>
-      <div
-        className="customCombobox"
-        style={{
-          border: isElementInFocus ? "1px solid var(--color-blue)" : "",
-          borderRadius: isElementInFocus ? "8px" : "",
-        }}
-      >
-        <div className="comboboxInputRow">
-          {isElementInFocus}
+      <div className="customCombobox">
+        <div
+          className={
+            "comboboxInputRow " +
+            (isElementInFocus ? "comboboxInputBorder" : "")
+          }
+        >
           <input
             ref={inputRef}
             type="text"
             placeholder="Choose a Fruit:"
-            className="comboboxInput ml-8"
+            className="comboboxInput ml-8 pl-8"
             style={{
               backgroundColor: isElementInFocus ? "" : "var(--color-gray)",
             }}
+            value={searchElement}
             onChange={(e) => setSearchElement(e.target.value)}
           />
 
@@ -55,7 +54,11 @@ export const CustomCombobox = () => {
                 element.toLowerCase().includes(searchElement.toLowerCase())
               )
               .map((item, index) => (
-                <div key={index} className="listItem p-8">
+                <div
+                  key={index}
+                  className="listItem p-8"
+                  onClick={() => setSearchElement(removeEmoji(item))}
+                >
                   {item}
                 </div>
               ))}

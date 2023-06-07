@@ -6,6 +6,7 @@ export function useOutside(ref) {
     function handleClickOutside(event) {
       if (ref.current && !ref.current.contains(event.target)) {
         setIsInFocus(false);
+        console.log("no-focus");
       } else {
         setIsInFocus(true);
       }
@@ -17,4 +18,8 @@ export function useOutside(ref) {
   }, [ref]);
 
   return { isInFocus };
+}
+
+export function removeEmoji(text) {
+  return text.replace(/\p{Emoji}/u, "");
 }
