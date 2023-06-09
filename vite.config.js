@@ -9,4 +9,10 @@ export default defineConfig({
   resolve: { alias: { "@": "src" } },
 
   plugins: [react()],
+
+  test: {
+    environment: "jsdom",
+    globals: true,
+    setupFiles: "./test-config.js",
+  },
 });

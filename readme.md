@@ -1,4 +1,4 @@
-# Assessment in react
+# react assessment
 
 ```
 npm i
