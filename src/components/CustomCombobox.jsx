@@ -52,6 +52,7 @@ export const CustomCombobox = () => {
             style={{
               backgroundColor: isShowList ? "" : "var(--color-gray)",
             }}
+            data-test="custom-combobox-input"
             value={searchElement}
             onChange={(e) => setSearchElement(e.target.value)}
             onClick={() => setIsShowList(true)}
@@ -67,12 +68,17 @@ export const CustomCombobox = () => {
               padding: "13px",
               backgroundColor: isShowList ? "" : "var(--color-gray)",
             }}
+            data-test="custom-combobox-img"
             onClick={() => setIsShowList(!isShowList)}
           />
         </div>
 
         {isShowList ? (
-          <div ref={listRef} className="datalist">
+          <div
+            ref={listRef}
+            className="datalist"
+            data-test="custom-combobox-datalist"
+          >
             {listFilter().map((item, index) => (
               <div
                 key={index}
